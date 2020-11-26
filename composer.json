@@ -1,0 +1,24 @@
+{
+    "name": "ttglad/payment",
+    "license": "MIT",
+    "description": "支付宝、微信等三方支付 php sdk",
+    "authors": [
+        {
+            "name": "taoYl",
+            "email": "snail_tyl@sina.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "ext-bcmath": "*",
+        "ext-mbstring": "*",
+        "ext-json": "*",
+        "ext-simplexml": "*",
+        "ext-xml": "*",
+        "ext-openssl": "*",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {"Payment\\": "src/"}
+    }
+}
