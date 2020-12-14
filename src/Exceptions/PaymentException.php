@@ -8,7 +8,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Payment\Exceptions;
+namespace Ttglad\Payment\Exceptions;
 
 
 class PaymentException extends \Exception

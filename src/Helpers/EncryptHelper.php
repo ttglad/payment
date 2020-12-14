@@ -8,9 +8,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Payment\Helpers;
+namespace Ttglad\Payment\Helpers;
 
-use Payment\Exceptions\PaymentException;
+use Ttglad\Payment\Exceptions\PaymentException;
 
 class EncryptHelper
 {
@@ -104,6 +104,26 @@ class EncryptHelper
     /**
      * @param $key
      * @param $data
+     * @param $sign
+     * @return bool
+     * @throws PaymentException
+     */
+    public static function rsaVerify($key, $data, $sign)
+    {
+        // 初始时，使用公钥key
+        $res = openssl_get_publickey($key);
+        if (empty($res)) {
+            throw new PaymentException('支付宝RSA公钥错误。请检查公钥文件格式是否正确');
+        }
+
+        $result = (bool)openssl_verify($data, base64_decode($sign), $res, OPENSSL_ALGO_SHA1);
+        openssl_free_key($res);
+        return $result;
+    }
+
+    /**
+     * @param $key
+     * @param $data
      * @return string
      * @throws PaymentException
      */
@@ -157,6 +177,25 @@ class EncryptHelper
 
         openssl_free_key($res);
         return $str;
+    }
+
+    /**
+     * @param $key
+     * @param $data
+     * @param $sign
+     * @return bool
+     * @throws PaymentException
+     */
+    public static function rsa2Verify($key, $data, $sign)
+    {
+        // 初始时，使用公钥key
+        $res = openssl_get_publickey($key);
+        if (empty($res)) {
+            throw new PaymentException('支付宝RSA公钥错误。请检查公钥文件格式是否正确');
+        }
+        $result = (bool)openssl_verify($data, base64_decode($sign), $res, OPENSSL_ALGO_SHA256);
+        openssl_free_key($res);
+        return $result;
     }
 
 }

@@ -8,10 +8,12 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Payment\Clients;
+namespace Ttglad\Payment\Clients;
 
 
-class Client
+use Ttglad\Payment\Services\BaseService;
+
+class Client extends BaseService
 {
 
 }

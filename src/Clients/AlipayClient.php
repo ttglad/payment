@@ -8,10 +8,116 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Payment\Clients;
+namespace Ttglad\Payment\Clients;
 
 
-class AlipayClient
+use Ttglad\Payment\Codes\PaymentCode;
+use Ttglad\Payment\Contracts\IPayContract;
+use Ttglad\Payment\Exceptions\PaymentException;
+use Ttglad\Payment\Services\Alipay\CancelOrder;
+use Ttglad\Payment\Services\Alipay\CloseOrder;
+use Ttglad\Payment\Services\Alipay\RefundQuery;
+use Ttglad\Payment\Services\Alipay\TradeQuery;
+use Ttglad\Payment\Services\Alipay\TradeRefund;
+
+
+class AlipayClient extends Client implements IPayContract
 {
+    /**
+     * @param string $channel
+     * @param array $requestParams
+     * @return mixed
+     * @throws PaymentException
+     */
+    public function pay(string $channel, array $requestParams)
+    {
+        $class = ucfirst(str_replace(['-', '_', ''], '', strtolower($channel)));
+        $className = "Ttglad\\Payment\\Services\\Alipay\\{$class}Pay";
 
+        if (!class_exists($className)) {
+            throw new PaymentException(sprintf('class [%s] not exists.', $className), PaymentCode::CLASS_NOT_EXIST);
+        }
+
+        try {
+            $charge = new $className();
+            return $charge->request($requestParams);
+        } catch (PaymentException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param array $requestParams
+     * @return mixed|string
+     * @throws PaymentException
+     */
+    public function refund(array $requestParams)
+    {
+        try {
+            $charge = new TradeRefund();
+            return $charge->request($requestParams);
+        } catch (PaymentException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param array $requestParams
+     * @return mixed|string
+     * @throws PaymentException
+     */
+    public function cancel(array $requestParams)
+    {
+        try {
+            $charge = new CancelOrder();
+            return $charge->request($requestParams);
+        } catch (PaymentException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param array $requestParams
+     * @return mixed|string
+     * @throws PaymentException
+     */
+    public function close(array $requestParams)
+    {
+        try {
+            $charge = new CloseOrder();
+            return $charge->request($requestParams);
+        } catch (PaymentException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param array $requestParams
+     * @return mixed|string
+     * @throws PaymentException
+     */
+    public function tradeQuery(array $requestParams)
+    {
+        try {
+            $charge = new TradeQuery();
+            return $charge->request($requestParams);
+        } catch (PaymentException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param array $requestParams
+     * @return mixed|string
+     * @throws PaymentException
+     */
+    public function refundQuery(array $requestParams)
+    {
+        try {
+            $charge = new RefundQuery();
+            return $charge->request($requestParams);
+        } catch (PaymentException $e) {
+            throw $e;
+        }
+    }
 }

@@ -8,7 +8,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Payment\Helpers;
+namespace Ttglad\Payment\Helpers;
 
 
 class ArrayHelper
@@ -32,5 +32,20 @@ class ArrayHelper
         }
 
         return $paramFilter;
+    }
+
+    /**
+     * @param $array
+     * @return string
+     */
+    public static function array2string($array)
+    {
+        $string = [];
+        if ($array && is_array($array)) {
+            foreach ($array as $key => $value) {
+                $string[] = $key . '=' . $value;
+            }
+        }
+        return implode(',', $string);
     }
 }

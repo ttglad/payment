@@ -8,10 +8,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Payment\Contracts;
+namespace Ttglad\Payment\Contracts;
 
 
-interface IRequestProxy
+interface IRequestContract
 {
     /**
      * @param array $requestParams

@@ -8,11 +8,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Payment\Helpers;
+namespace Ttglad\Payment\Helpers;
 
 
-use Paymenet\Codes\PaymentCode;
-use Payment\Exceptions\PaymentException;
+use Ttglad\Payment\Codes\PaymentCode;
+use Ttglad\Payment\Exceptions\PaymentException;
 
 class StringHelper
 {
@@ -26,15 +26,15 @@ class StringHelper
         if (!is_array($params)) {
             throw new PaymentException('必须传入数组参数', PaymentCode::PARAM_ERROR);
         }
+        ksort($params);
+        reset($params);
 
-        reset($para);
         $arg = '';
-        foreach ($para as $key => $val) {
-            if (is_array($val)) {
+        foreach ($params as $key => $val) {
+            if (is_array($val) || self::checkEmpty($val)) {
                 continue;
             }
-
-            $arg .= $key . '=' . urldecode($val) . '&';
+            $arg .= $key . '=' . ($val) . '&';
         }
         //去掉最后一个&字符
         $arg && $arg = substr($arg, 0, -1);
@@ -45,5 +45,51 @@ class StringHelper
         }
 
         return $arg;
+    }
+
+    /**
+     * @param $data
+     * @param $targetCharset
+     * @return false|string|string[]|null
+     */
+    public static function charSet($data, $targetCharset) {
+
+        if (!empty($data)) {
+            $fileType = 'UTF-8';
+            if (strcasecmp($fileType, $targetCharset) != 0) {
+                $data = mb_convert_encoding($data, $targetCharset, $fileType);
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * @param $value
+     * @return bool
+     */
+    public static function checkEmpty($value)
+    {
+        if (!isset($value))
+            return true;
+        if ($value === null)
+            return true;
+        if (trim($value) === "")
+            return true;
+        return false;
+    }
+
+    /**
+     * 0x转高精度数字
+     * @param $hex
+     * @return int|string
+     */
+    public static function hex2dec($hex)
+    {
+        $dec = 0;
+        $len = strlen($hex);
+        for ($i = 1; $i <= $len; $i++) {
+            $dec = bcadd($dec, bcmul(strval(hexdec($hex[$i - 1])), bcpow('16', strval($len - $i))));
+        }
+        return $dec;
     }
 }

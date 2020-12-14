@@ -8,7 +8,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Payment\Configs;
+namespace Ttglad\Payment\Configs;
 
 
 class Config implements \ArrayAccess

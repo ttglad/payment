@@ -8,12 +8,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Paymenet\Codes;
+namespace Ttglad\Payment\Codes;
 
 final class PaymentCode
 {
-    const PARAM_ERROR = 1001; // 参数错误
-    const CONFIG_ERROR = 1002; // 配置错误
+    const PARAM_ERROR = 100001; // 参数错误
+    const CONFIG_ERROR = 10002; // 配置错误
+    const CLASS_NOT_EXIST = 100003; // 不存在的类
 
+    const JSON_FORMAT_ERROR = 101001;
 
+    const SIGN_ERROR = 102001;
 }

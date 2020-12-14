@@ -9,7 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Paymenet\Services;
+namespace Ttglad\Payment\Services;
+
+use Ttglad\Payment\Configs\Config;
 
 /**
  * Class BaseService
