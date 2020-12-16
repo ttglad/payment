@@ -48,4 +48,35 @@ class ArrayHelper
         }
         return implode(',', $string);
     }
+
+    /**
+     * @param array $inputs
+     * @param $keys
+     * @return array
+     */
+    public static function removeKeys(array $inputs, $keys)
+    {
+        if (!is_array($keys)) {// 如果不是数组，需要进行转换
+            $keys = explode(',', $keys);
+        }
+
+        if (empty($keys) || !is_array($keys)) {
+            return $inputs;
+        }
+
+        $flag = true;
+        foreach ($keys as $key) {
+            if (array_key_exists($key, $inputs)) {
+                if (is_int($key)) {
+                    $flag = false;
+                }
+                unset($inputs[$key]);
+            }
+        }
+
+        if (!$flag) {
+            $inputs = array_values($inputs);
+        }
+        return $inputs;
+    }
 }

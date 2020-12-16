@@ -16,16 +16,23 @@ use Psr\Http\Message\ResponseInterface;
 
 class HttpHelper
 {
+
     /**
      * @param string $url
      * @param array $query
      * @param array $headers
      * @param float $timeOut
+     * @param array $options
      * @return mixed|string
      */
-    public static function get(string $url = '', array $query = [], array $headers = [], float $timeOut = 5.0)
-    {
-        $client = self::getHttpClient('', $timeOut);
+    public static function get(
+        string $url = '',
+        array $query = [],
+        array $headers = [],
+        float $timeOut = 5.0,
+        array $options = []
+    ) {
+        $client = self::getHttpClient('', $timeOut, $options);
 
         $response = $client->get($url, [
             'headers' => $headers,
@@ -41,11 +48,17 @@ class HttpHelper
      * @param array $params
      * @param array $headers
      * @param float $timeOut
+     * @param array $options
      * @return mixed|string
      */
-    public static function post(string $url = '', array $params = [], array $headers = [], float $timeOut = 5.0)
-    {
-        $client = self::getHttpClient('', $timeOut);
+    public static function post(
+        string $url = '',
+        array $params = [],
+        array $headers = [],
+        float $timeOut = 5.0,
+        array $options = []
+    ) {
+        $client = self::getHttpClient('', $timeOut, $options);
 
         $response = $client->post($url, [
             'headers' => $headers,
@@ -58,14 +71,20 @@ class HttpHelper
 
     /**
      * @param string $url
-     * @param array $params
+     * @param string $params
      * @param array $headers
      * @param float $timeOut
+     * @param array $options
      * @return mixed|string
      */
-    public static function postXml(string $url = '', array $params = [], array $headers = [], float $timeOut = 5.0)
-    {
-        $client = self::getHttpClient('', $timeOut);
+    public static function postXml(
+        string $url = '',
+        string $params = '',
+        array $headers = [],
+        float $timeOut = 5.0,
+        array $options = []
+    ) {
+        $client = self::getHttpClient('', $timeOut, $options);
 
         $response = $client->post($url, [
             'headers' => $headers,
@@ -80,14 +99,21 @@ class HttpHelper
     /**
      * @param string $url
      * @param float $timeOut
+     * @param array $option
      * @return Client
      */
-    private static function getHttpClient(string $url = '', float $timeOut = 5.0)
+    private static function getHttpClient(string $url = '', float $timeOut = 5.0, array $option = [])
     {
-        return new Client([
+        $options = [
             'base_uri' => $url,
             'timeout' => $timeOut,
-        ]);
+        ];
+
+        if (!empty($option)) {
+            $options = array_merge($options, $option);
+        }
+
+        return new Client($options);
     }
 
     /**

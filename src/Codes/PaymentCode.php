@@ -17,6 +17,14 @@ final class PaymentCode
     const CLASS_NOT_EXIST = 100003; // 不存在的类
 
     const JSON_FORMAT_ERROR = 101001;
+    const XML_FORMAT_ERROR = 101002;
 
     const SIGN_ERROR = 102001;
+
+    // wechat error
+    const WECHAT_TIMEOUT = 900001;
+    const WECHAT_CHECK_FAILED = 900002;
+
+    // alipay error
+    const ALIPAY_TIMEOUT = 910001;
 }
