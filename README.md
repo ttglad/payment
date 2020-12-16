@@ -9,7 +9,7 @@ composer require ttglad/payment
 # 使用方法
 通用参数说明：amount（`金额：单位分`）
 
-## 支付宝 参考文档连接(https://opendocs.alipay.com/apis)
+## 支付宝
 
 ```
 $client = new \Ttglad\Payment\Clients\AlipayClient();
@@ -41,7 +41,7 @@ $result = $client->tradeQuery([
 ]);
 ```
 
-## 微信 参考文档连接(https://pay.weixin.qq.com/wiki/doc/api/index.html)
+## 微信
 
 ```
 $client = new \Ttglad\Payment\Clients\WechatClient();
@@ -70,3 +70,7 @@ $result = $client->tradeQuery([
     'out_trade_no' => 'test1000307171',
 ]);
 ```
+
+# 第三方文档
+#### [支付宝](https://opendocs.alipay.com/apis)
+#### [微信](https://pay.weixin.qq.com/wiki/doc/api/index.html)
