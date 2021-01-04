@@ -79,4 +79,28 @@ class ArrayHelper
         }
         return $inputs;
     }
+
+    /**
+     * @param $str
+     * @return array
+     */
+    public static function coverStringToArray($str)
+    {
+        $result = array();
+
+        if (!empty($str)) {
+            $temp = preg_split('/&/', $str);
+            if (!empty($temp)) {
+                foreach ($temp as $key => $val) {
+                    $arr = preg_split('/=/', $val, 2);
+                    if (!empty($arr)) {
+                        $k = $arr['0'];
+                        $v = $arr['1'];
+                        $result[$k] = $v;
+                    }
+                }
+            }
+        }
+        return $result;
+    }
 }

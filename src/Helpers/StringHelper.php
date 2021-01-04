@@ -52,7 +52,8 @@ class StringHelper
      * @param $targetCharset
      * @return false|string|string[]|null
      */
-    public static function charSet($data, $targetCharset) {
+    public static function charSet($data, $targetCharset)
+    {
 
         if (!empty($data)) {
             $fileType = 'UTF-8';
@@ -69,12 +70,15 @@ class StringHelper
      */
     public static function checkEmpty($value)
     {
-        if (!isset($value))
+        if (!isset($value)) {
             return true;
-        if ($value === null)
+        }
+        if ($value === null) {
             return true;
-        if (trim($value) === "")
+        }
+        if (trim($value) === "") {
             return true;
+        }
         return false;
     }
 
@@ -100,10 +104,40 @@ class StringHelper
     public static function getNonceStr($length = 32)
     {
         $chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-        $str   = '';
+        $str = '';
         for ($i = 0; $i < $length; $i++) {
             $str .= substr($chars, mt_rand(0, strlen($chars) - 1), 1);
         }
         return $str;
+    }
+
+
+    /**
+     * @param array $params
+     * @param string $action
+     * @param string $code
+     * @return string
+     */
+    public static function createHtml(array $params = [], string $action = '', string $code = 'UTF-8')
+    {
+        $html = <<<eot
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset={$code}" />
+</head>
+<body  onload="javascript:document.pay_form.submit();">
+    <form id="pay_form" style="display:none" name="pay_form" action="{$action}" method="post">
+
+eot;
+        foreach ($params as $key => $value) {
+            $html .= "    <input type=\"hidden\" name=\"{$key}\" id=\"{$key}\" value=\"{$value}\" />\n";
+        }
+        $html .= <<<eot
+    <input type="submit" type="hidden">
+    </form>
+</body>
+</html>
+eot;
+        return $html;
     }
 }

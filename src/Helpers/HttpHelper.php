@@ -59,7 +59,6 @@ class HttpHelper
         array $options = []
     ) {
         $client = self::getHttpClient('', $timeOut, $options);
-
         $response = $client->post($url, [
             'headers' => $headers,
             'form_params' => $params,

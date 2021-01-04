@@ -27,4 +27,9 @@ final class PaymentCode
 
     // alipay error
     const ALIPAY_TIMEOUT = 910001;
+
+    // union error
+    const UNION_TIMEOUT = 920001;
+    const UNION_CHECK_FAILED = 920002;
+    const UNION_RESULT_FAILED = 920002;
 }

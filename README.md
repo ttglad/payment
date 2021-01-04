@@ -74,3 +74,4 @@ $result = $client->tradeQuery([
 # 第三方文档
 #### [支付宝](https://opendocs.alipay.com/apis)
 #### [微信](https://pay.weixin.qq.com/wiki/doc/api/index.html)
+#### [银联](https://open.unionpay.com/tjweb/api/dictionary)
