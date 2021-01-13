@@ -7,7 +7,8 @@ composer require ttglad/payment
 ```
 
 # 使用方法
-通用参数说明：amount（`金额：单位分`）
+###### 通用参数说明：amount（`金额：单位分`）
+###### 单号：out_trade_no（`单号`）
 
 ## 支付宝
 
@@ -68,6 +69,36 @@ $result = $client->pay('app', [
 # 查询
 $result = $client->tradeQuery([
     'out_trade_no' => 'test1000307171',
+]);
+```
+
+## 银联
+
+```
+$client = new \Ttglad\Payment\Clients\UnionClient();
+$client->setConfig([
+    'version' => '5.1.0',
+    'mer_id' => '', // 商户号
+    'cert_dir' => '', // 证书目录
+    'cert_path' => '', // 证书地址
+    'cert_pwd' => '', // 证书密码
+    'notify_url' => '', // 通知地址
+]);
+
+# 支付 
+$result = $client->pay('app', [
+    'body' => 'union app pay',
+    'out_trade_no' => time() . rand(10000000, 99999999),
+    'amount' => 1,
+    'default_pay_type' => '0001',
+    'req_reserved' => '123123123',
+]);
+
+# 查询
+$result = $client->tradeQuery([
+    'out_trade_no' => 'test1000307171',
+    'amount' => 9480,
+    'order_time' => strtotime('2020-12-20 23:59:36'),
 ]);
 ```
 
