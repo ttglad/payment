@@ -82,7 +82,7 @@ class TradeRefund extends UnionBaseService implements IRequestContract
 
         $selfParams = [
             'bizType' => $requestParams['biz_type'] ?? '000201',
-            'txnAmt' => $requestParams['amount'] ?? '',
+            'txnAmt' => $requestParams['refund_amount'] ?? '',
             'txnTime' => date('YmdHis', $nowTime),
             'txnType' => $requestParams['txn_type'] ?? '04',
             'txnSubType' => $requestParams['txn_sub_type'] ?? '00',
@@ -93,7 +93,7 @@ class TradeRefund extends UnionBaseService implements IRequestContract
             'subMerName' => $requestParams['sub_mer_name'] ?? '',
             'orderId' => $requestParams['out_trade_no'] ?? '',
             'acqInsCode' => $requestParams['acq_ins_code'] ?? '',
-            'origQryId' => $requestParams['orig_qry_id'] ?? '',
+            'origQryId' => $requestParams['out_refund_no'] ?? '',
             'reserved' => $requestParams['reserved'] ?? '',
             'channelType' => $requestParams['reserved'] ?? '08',
             'accSplitData' => $requestParams['acc_split_data'] ?? '',

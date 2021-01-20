@@ -46,6 +46,18 @@ class EncryptHelper
 
 
     /**
+     * @param $data
+     * @return string
+     */
+    public static function der2pem($data)
+    {
+        $pem = chunk_split(base64_encode($data), 64, "\n");
+        $pem = "-----BEGIN CERTIFICATE-----\n" . $pem . "-----END CERTIFICATE-----\n";
+        return $pem;
+    }
+
+
+    /**
      * @param $key
      * @param $data
      * @return string

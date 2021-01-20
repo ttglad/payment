@@ -1,5 +1,5 @@
 # payment
-目前仅支持支付宝、微信、银联（各端支付、退款、支付查询、退款查询、关闭订单、撤销订单）。
+目前仅支持支付宝、微信、银联、农行（各端支付、退款、支付查询、退款查询、关闭订单、撤销订单）。
 
 # 安装方法
 ```
@@ -10,6 +10,8 @@ composer require ttglad/payment
 ###### 通用参数说明：
 ###### amount（`金额：单位分`）
 ###### out_trade_no（`单号`）
+###### refund_amount（`退款金额：单位分`）
+###### out_refund_no（`退款单号`）
 
 ## 支付宝
 
@@ -103,7 +105,32 @@ $result = $client->tradeQuery([
 ]);
 ```
 
+# 农行
+```
+$client = new \Ttglad\Payment\Clients\AbcClient();
+$client->setConfig([
+    'version' => 'V3.0.0',
+    'merchant_id' => '', // 商户号
+    'plat_cert_path' => '', // 证书目录
+    'cert_path' => '', // 证书地址
+    'cert_pwd' => '', // 证书密码
+    'notify_url' => '', // 通知地址
+]);
+
+# 支付 
+$result = $client->pay('app', [
+    'out_trade_no' => time() . rand(10000000, 99999999),
+    'amount' => 1,
+]);
+
+# 查询
+$result = $client->tradeQuery([
+    'out_trade_no' => 'test1000307171',
+]);
+```
+
 # 第三方文档
 #### [支付宝](https://opendocs.alipay.com/apis)
 #### [微信](https://pay.weixin.qq.com/wiki/doc/api/index.html)
 #### [银联](https://open.unionpay.com/tjweb/api/dictionary)
+#### [农行]()(目前无在线文档)

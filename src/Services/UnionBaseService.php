@@ -14,8 +14,6 @@ namespace Ttglad\Payment\Services;
 use Ttglad\Payment\Codes\PaymentCode;
 use Ttglad\Payment\Exceptions\PaymentException;
 use Ttglad\Payment\Helpers\ArrayHelper;
-use Ttglad\Payment\Helpers\DataHelper;
-use Ttglad\Payment\Helpers\EncryptHelper;
 use Ttglad\Payment\Helpers\StringHelper;
 
 abstract class UnionBaseService extends BaseService

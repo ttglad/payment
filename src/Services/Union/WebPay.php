@@ -11,12 +11,10 @@
 namespace Ttglad\Payment\Services\Union;
 
 
-use Ttglad\Payment\Codes\PaymentCode;
 use Ttglad\Payment\Consts\UnionConst;
 use Ttglad\Payment\Contracts\IRequestContract;
 use Ttglad\Payment\Exceptions\PaymentException;
 use Ttglad\Payment\Helpers\ArrayHelper;
-use Ttglad\Payment\Helpers\HttpHelper;
 use Ttglad\Payment\Helpers\StringHelper;
 use Ttglad\Payment\Services\UnionBaseService;
 

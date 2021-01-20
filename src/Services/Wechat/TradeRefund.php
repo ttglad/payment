@@ -64,7 +64,7 @@ class TradeRefund extends WechatBaseService implements IRequestContract
             'out_trade_no' => $requestParams['out_trade_no'] ?? '',
             'out_refund_no' => $requestParams['out_refund_no'] ?? '',
             'total_fee' => $requestParams['total_fee'] ?? '',
-            'refund_fee' => $requestParams['refund_fee'] ?? '',
+            'refund_fee' => $requestParams['refund_amount'] ?? '',
             'refund_fee_type' => $requestParams['refund_fee_type'] ?? 'CNY',
             'refund_desc' => $requestParams['refund_desc'] ?? '',
             'refund_account' => $requestParams['refund_account'] ?? 'REFUND_SOURCE_RECHARGE_FUNDS',

@@ -67,7 +67,7 @@ class TradeRefund extends AlipayBaseService implements IRequestContract
             'refund_amount' => $requestParams['refund_amount'] > 0 ? number_format($requestParams['refund_amount'] / 100, 2) : '',
             'refund_currency' => $requestParams['refund_currency'] ?? 'CNY',
             'refund_reason' => $requestParams['refund_reason'] ?? '',
-            'out_request_no' => $requestParams['out_request_no'] ?? '',
+            'out_request_no' => $requestParams['out_refund_no'] ?? '',
             'operator_id' => $requestParams['operator_id'] ?? '',
             'store_id' => $requestParams['store_id'] ?? '',
             'terminal_id' => $requestParams['terminal_id'] ?? '',

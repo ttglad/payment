@@ -32,4 +32,9 @@ final class PaymentCode
     const UNION_TIMEOUT = 920001;
     const UNION_CHECK_FAILED = 920002;
     const UNION_RESULT_FAILED = 920002;
+
+    // union error
+    const ABC_TIMEOUT = 930001;
+    const ABC_CHECK_FAILED = 930002;
+    const ABC_RESULT_FAILED = 930002;
 }

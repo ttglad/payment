@@ -14,8 +14,6 @@ namespace Ttglad\Payment\Services\Wechat;
 use Ttglad\Payment\Consts\WechatConst;
 use Ttglad\Payment\Contracts\IRequestContract;
 use Ttglad\Payment\Exceptions\PaymentException;
-use Ttglad\Payment\Helpers\ArrayHelper;
-use Ttglad\Payment\Helpers\StringHelper;
 use Ttglad\Payment\Services\WechatBaseService;
 
 class QrPay extends WechatBaseService implements IRequestContract

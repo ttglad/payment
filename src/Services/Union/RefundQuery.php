@@ -12,7 +12,6 @@ namespace Ttglad\Payment\Services\Union;
 
 
 use Ttglad\Payment\Codes\PaymentCode;
-use Ttglad\Payment\Consts\AlipayConst;
 use Ttglad\Payment\Consts\UnionConst;
 use Ttglad\Payment\Contracts\IRequestContract;
 use Ttglad\Payment\Exceptions\PaymentException;
