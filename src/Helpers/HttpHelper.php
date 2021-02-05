@@ -23,6 +23,7 @@ class HttpHelper
      * @param array $headers
      * @param float $timeOut
      * @param array $options
+     * @param bool $parseContent
      * @return mixed|string
      */
     public static function get(
@@ -30,17 +31,26 @@ class HttpHelper
         array $query = [],
         array $headers = [],
         float $timeOut = 5.0,
-        array $options = []
+        array $options = [],
+        bool $parseContent = true
     ) {
         $client = self::getHttpClient('', $timeOut, $options);
 
-        $response = $client->get($url, [
+        $queryOption = [
             'headers' => $headers,
-            'query' => $query,
             'http_errors' => false,
-        ]);
+        ];
+        if (!empty($query)) {
+            $queryOption['query'] = $query;
+        }
 
-        return self::parseResponse($response);
+        $response = $client->get($url, $queryOption);
+
+        if ($parseContent) {
+            $response = self::parseResponse($response);
+        }
+
+        return $response;
     }
 
     /**
@@ -49,6 +59,7 @@ class HttpHelper
      * @param array $headers
      * @param float $timeOut
      * @param array $options
+     * @param bool $parseContent
      * @return mixed|string
      */
     public static function post(
@@ -56,7 +67,8 @@ class HttpHelper
         array $params = [],
         array $headers = [],
         float $timeOut = 5.0,
-        array $options = []
+        array $options = [],
+        bool $parseContent = true
     ) {
         $client = self::getHttpClient('', $timeOut, $options);
         $response = $client->post($url, [
@@ -65,7 +77,11 @@ class HttpHelper
             'http_errors' => false,
         ]);
 
-        return self::parseResponse($response);
+        if ($parseContent) {
+            $response = self::parseResponse($response);
+        }
+
+        return $response;
     }
 
     /**
@@ -74,14 +90,16 @@ class HttpHelper
      * @param array $headers
      * @param float $timeOut
      * @param array $options
-     * @return mixed|string
+     * @param bool $parseContent
+     * @return mixed|ResponseInterface|string
      */
     public static function postXml(
         string $url = '',
         string $params = '',
         array $headers = [],
         float $timeOut = 5.0,
-        array $options = []
+        array $options = [],
+        bool $parseContent = true
     ) {
         $client = self::getHttpClient('', $timeOut, $options);
 
@@ -91,7 +109,11 @@ class HttpHelper
             'http_errors' => false,
         ]);
 
-        return self::parseResponse($response);
+        if ($parseContent) {
+            $response = self::parseResponse($response);
+        }
+
+        return $response;
     }
 
 

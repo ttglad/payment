@@ -11,6 +11,7 @@
 namespace Ttglad\Payment\Services\Alipay;
 
 
+use Ttglad\Payment\Helpers\DataHelper;
 use Ttglad\Payment\Services\AlipayBaseService;
 use Ttglad\Payment\Consts\AlipayConst;
 use Ttglad\Payment\Contracts\IRequestContract;
@@ -51,7 +52,7 @@ class AppPay extends AlipayBaseService implements IRequestContract
 
         $bizContent = [
             'timeout_express' => $timeoutExp,
-            'total_amount' => $requestParams['amount'] > 0 ? number_format($requestParams['amount'] / 100, 2) : '',
+            'total_amount' => DataHelper::amountFormat($requestParams['amount']),
             'product_code' => $requestParams['product_code'] ?? '',
             'body' => $requestParams['body'] ?? '',
             'subject' => $requestParams['subject'] ?? '',
@@ -66,7 +67,7 @@ class AppPay extends AlipayBaseService implements IRequestContract
             'store_id' => $requestParams['store_id'] ?? '',
             'specified_channel' => $requestParams['specified_channel'] ?? '',
             'disable_pay_channels' =>  $requestParams['disable_pay_channels'] ?? '',
-            'goods_detail' => $requestParams['goods_detail'] ?? '',
+            'goods_detail' => $this->formatGoodsInfo($requestParams['goods_info']),
             'ext_user_info' => $requestParams['ext_user_info'] ?? '',
             'business_params' => $requestParams['business_params'] ?? '',
         ];

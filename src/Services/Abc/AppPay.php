@@ -16,6 +16,7 @@ use Ttglad\Payment\Consts\AbcConst;
 use Ttglad\Payment\Contracts\IRequestContract;
 use Ttglad\Payment\Exceptions\PaymentException;
 use Ttglad\Payment\Helpers\ArrayHelper;
+use Ttglad\Payment\Helpers\DataHelper;
 use Ttglad\Payment\Services\AbcBaseService;
 
 class AppPay extends AbcBaseService implements IRequestContract
@@ -89,7 +90,7 @@ class AppPay extends AbcBaseService implements IRequestContract
             'orderTimeoutDate' => $timeExpire,
             'OrderNo' => $requestParams['out_trade_no'] ?? '',
             'CurrencyCode' => '156',
-            'OrderAmount' => $requestParams['amount'] / 100,
+            'OrderAmount' => DataHelper::amountFormat($requestParams['amount']),
             'CommodityType' => $requestParams['commodityType'] ?? '0201',
             'ExpiredDate' => $requestParams['expiredDate'] ?? '',
             'Fee' => $requestParams['fee'] ?? '',

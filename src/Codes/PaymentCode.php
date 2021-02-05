@@ -20,6 +20,7 @@ final class PaymentCode
     const XML_FORMAT_ERROR = 101002;
 
     const SIGN_ERROR = 102001;
+    const VERIFY_ERROR = 102002;
 
     // wechat error
     const WECHAT_TIMEOUT = 900001;
@@ -33,8 +34,18 @@ final class PaymentCode
     const UNION_CHECK_FAILED = 920002;
     const UNION_RESULT_FAILED = 920002;
 
-    // union error
+    // abc error
     const ABC_TIMEOUT = 930001;
     const ABC_CHECK_FAILED = 930002;
-    const ABC_RESULT_FAILED = 930002;
+    const ABC_RESULT_FAILED = 930003;
+
+    // alipay global error
+    const ALIPAY_GLOBAL_TIMEOUT = 940001;
+    const ALIPAY_GLOBAL_CHECK_FAILED = 940002;
+    const ALIPAY_GLOBAL_RESULT_FAILED = 940003;
+
+    // alipay settle error
+    const ALIPAY_SETTLE_TIMEOUT = 950001;
+    const ALIPAY_SETTLE_CHECK_FAILED = 950002;
+    const ALIPAY_SETTLE_RESULT_FAILED = 950003;
 }

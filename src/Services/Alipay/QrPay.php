@@ -16,6 +16,7 @@ use Ttglad\Payment\Consts\AlipayConst;
 use Ttglad\Payment\Contracts\IRequestContract;
 use Ttglad\Payment\Exceptions\PaymentException;
 use Ttglad\Payment\Helpers\ArrayHelper;
+use Ttglad\Payment\Helpers\DataHelper;
 use Ttglad\Payment\Helpers\HttpHelper;
 use Ttglad\Payment\Services\AlipayBaseService;
 
@@ -71,11 +72,10 @@ class QrPay extends AlipayBaseService implements IRequestContract
         $bizContent = [
             'out_trade_no' => $requestParams['out_trade_no'] ?? '',
             'seller_id' => $requestParams['seller_id'] ?? '',
-            'total_amount' => $requestParams['amount'] > 0 ? number_format($requestParams['amount'] / 100, 2) : '',
-            'discountable_amount' => isset($requestParams['discountable_amount']) ? number_format($requestParams['discountable_amount'] / 100, 2) : '',
-            'subject' => $requestParams['subject'] ?? '',
+            'total_amount' => DataHelper::amountFormat($requestParams['amount']),
+            'discountable_amount' => DataHelper::amountFormat($requestParams['discountable_amount']),'subject' => $requestParams['subject'] ?? '',
             'body' => $requestParams['body'] ?? '',
-            'goods_detail' => $requestParams['goods_detail'] ?? '',
+            'goods_detail' => $this->formatGoodsInfo($requestParams['goods_info']),
             'product_code' => $requestParams['product_code'] ?? '',
             'operator_id' => $requestParams['operator_id'] ?? '',
             'store_id' => $requestParams['store_id'] ?? '',

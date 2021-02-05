@@ -18,10 +18,11 @@ class StringHelper
 {
     /**
      * @param $params
+     * @param array $exceptKeys
      * @return false|string
      * @throws PaymentException
      */
-    public static function createLinkString($params)
+    public static function createLinkString($params, $exceptKeys = [])
     {
         if (!is_array($params)) {
             throw new PaymentException('必须传入数组参数', PaymentCode::PARAM_ERROR);
@@ -31,10 +32,10 @@ class StringHelper
 
         $arg = '';
         foreach ($params as $key => $val) {
-            if (is_array($val) || self::checkEmpty($val)) {
+            if (is_array($val) || self::checkEmpty($val) || in_array($key, $exceptKeys)) {
                 continue;
             }
-            $arg .= $key . '=' . ($val) . '&';
+            $arg .= $key . '=' . $val . '&';
         }
         //去掉最后一个&字符
         $arg && $arg = substr($arg, 0, -1);
@@ -76,7 +77,7 @@ class StringHelper
         if ($value === null) {
             return true;
         }
-        if (trim($value) === "") {
+        if (!is_array($value) && trim($value) === "") {
             return true;
         }
         return false;
@@ -103,7 +104,7 @@ class StringHelper
      */
     public static function getNonceStr($length = 32)
     {
-        $chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        $chars = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $str = '';
         for ($i = 0; $i < $length; $i++) {
             $str .= substr($chars, mt_rand(0, strlen($chars) - 1), 1);

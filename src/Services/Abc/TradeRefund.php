@@ -16,6 +16,7 @@ use Ttglad\Payment\Consts\AbcConst;
 use Ttglad\Payment\Contracts\IRequestContract;
 use Ttglad\Payment\Exceptions\PaymentException;
 use Ttglad\Payment\Helpers\ArrayHelper;
+use Ttglad\Payment\Helpers\DataHelper;
 use Ttglad\Payment\Services\AbcBaseService;
 
 class TradeRefund extends AbcBaseService implements IRequestContract
@@ -69,7 +70,7 @@ class TradeRefund extends AbcBaseService implements IRequestContract
             'OrderNo' => $requestParams['out_trade_no'],
             'NewOrderNo' => $requestParams['out_refund_no'],
             'CurrencyCode' => $requestParams['currencyCode'] ?? '156',
-            'TrxAmount' => $requestParams['refund_amount'] / 100,
+            'TrxAmount' => DataHelper::amountFormat($requestParams['refund_amount']),
             'RefundType' => $requestParams['refundType'] ?? '0',
             'MerchantRemarks' => $requestParams['merchantRemarks'] ?? '',
             'MerRefundAccountFlag' => $requestParams['merRefundAccountFlag'] ?? '',

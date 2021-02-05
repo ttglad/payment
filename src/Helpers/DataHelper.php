@@ -60,4 +60,17 @@ class DataHelper
 
         return $data;
     }
+
+    /**
+     * @param $amount
+     * @return string
+     */
+    public static function amountFormat($amount)
+    {
+        $return = '';
+        if ($amount > 0) {
+            $return = number_format($amount / 100, 2);
+        }
+        return $return;
+    }
 }

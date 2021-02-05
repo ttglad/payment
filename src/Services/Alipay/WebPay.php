@@ -15,6 +15,7 @@ use Ttglad\Payment\Consts\AlipayConst;
 use Ttglad\Payment\Contracts\IRequestContract;
 use Ttglad\Payment\Exceptions\PaymentException;
 use Ttglad\Payment\Helpers\ArrayHelper;
+use Ttglad\Payment\Helpers\DataHelper;
 use Ttglad\Payment\Services\AlipayBaseService;
 
 class WebPay extends AlipayBaseService implements IRequestContract
@@ -52,11 +53,11 @@ class WebPay extends AlipayBaseService implements IRequestContract
         $bizContent = [
             'out_trade_no' => $requestParams['out_trade_no'] ?? '',
             'product_code' => $requestParams['product_code'] ?? 'FAST_INSTANT_TRADE_PAY',
-            'total_amount' => $requestParams['amount'] > 0 ? number_format($requestParams['amount'] / 100, 2) : '',
-            'subject' => $requestParams['subject'] ?? '',
+            'total_amount' => DataHelper::amountFormat($requestParams['amount']),
+            'discountable_amount' => DataHelper::amountFormat($requestParams['discountable_amount']),            'subject' => $requestParams['subject'] ?? '',
             'body' => $requestParams['body'] ?? '',
             'time_expire' => $timeExpire ? date('Y-m-d H:i:s', $timeExpire) : '',
-            'goods_detail' => $requestParams['goods_detail'] ?? '',
+            'goods_detail' => $this->formatGoodsInfo($requestParams['goods_info']),
             'passback_params' => urlencode($requestParams['return_params'] ?? ''),
             'extend_params' => $requestParams['extend_params'] ?? '',
             'goods_type' => $requestParams['goods_type'] ?? '',

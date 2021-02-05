@@ -10,6 +10,7 @@
 
 namespace Ttglad\Payment\Helpers;
 
+use Ttglad\Payment\Codes\PaymentCode;
 use Ttglad\Payment\Exceptions\PaymentException;
 
 class EncryptHelper
@@ -58,6 +59,34 @@ class EncryptHelper
 
 
     /**
+     * @param $string
+     * @param $key
+     * @return string
+     */
+    public static function md5Encrypt($key, $string)
+    {
+        $string = $string . $key;
+        return md5($string);
+    }
+
+    /**
+     * @param $string
+     * @param $sign
+     * @param $key
+     * @return bool
+     */
+    public static function md5Verify($key, $string, $sign)
+    {
+        $string = $string . $key;
+
+        if (md5($string) == $sign) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * @param $key
      * @param $data
      * @return string
@@ -71,7 +100,7 @@ class EncryptHelper
 
         $res = openssl_get_privatekey($key);
         if (empty($res)) {
-            throw new PaymentException('您使用的私钥格式错误，请检查RSA私钥配置');
+            throw new PaymentException('您使用的私钥格式错误，请检查RSA私钥配置', PaymentCode::SIGN_ERROR);
         }
 
         openssl_sign($data, $sign, $res);

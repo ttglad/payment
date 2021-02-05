@@ -70,6 +70,10 @@ class BarPay extends WechatBaseService implements IRequestContract
             'auth_code' => $requestParams['auth_code'] ?? '',
         ];
 
+        if (isset($requestParams['goods_info'])) {
+            $selfParams['detail']['goods_detail'] = $this->formatGoodsInfo($requestParams['goods_info']);
+        }
+
         return $selfParams;
     }
 

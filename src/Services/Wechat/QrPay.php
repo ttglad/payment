@@ -72,6 +72,10 @@ class QrPay extends WechatBaseService implements IRequestContract
             'scene_info' => $requestParams['scene_info'] ?? '',
         ];
 
+        if (isset($requestParams['goods_info'])) {
+            $selfParams['detail']['goods_detail'] = $this->formatGoodsInfo($requestParams['goods_info']);
+        }
+
         return $selfParams;
     }
 

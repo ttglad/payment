@@ -22,12 +22,17 @@ use Ttglad\Payment\Helpers\ArrayHelper;
  * Class AlipayBaseService
  * @package Paymenet\Services
  */
-abstract class AlipayBaseService extends BaseService
+abstract class AlipaySettleBaseService extends BaseService
 {
     /**
      * 支付宝接口成功code定义
      */
     const REQ_SUCCESS = '10000';
+
+    /**
+     * @var string
+     */
+    protected $charset = 'utf-8';
 
     /**
      * @var string
@@ -75,6 +80,9 @@ abstract class AlipayBaseService extends BaseService
      */
     public function __construct()
     {
+        // 获取字符编码
+        $this->charset = self::$config->get('charset', 'utf-8');
+
         // 获取证书模式
         $this->keyType = self::$config->get('key_type', 'normal');
 
@@ -195,7 +203,7 @@ abstract class AlipayBaseService extends BaseService
             'app_id' => self::$config->get('app_id', ''),
             'method' => $method,
             'format' => 'JSON',
-            'charset' => 'utf-8',
+            'charset' => 'UTF-8',
             'sign_type' => self::$config->get('sign_type', 'RSA2'),
             'timestamp' => date('Y-m-d H:i:s'),
             'version' => '1.0',

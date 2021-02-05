@@ -14,7 +14,6 @@ namespace Ttglad\Payment\Clients;
 use Ttglad\Payment\Codes\PaymentCode;
 use Ttglad\Payment\Contracts\IPayContract;
 use Ttglad\Payment\Exceptions\PaymentException;
-use Ttglad\Payment\Services\Abc\CancelOrder;
 use Ttglad\Payment\Services\Abc\RefundQuery;
 use Ttglad\Payment\Services\Abc\TradeQuery;
 use Ttglad\Payment\Services\Abc\TradeRefund;
@@ -67,12 +66,6 @@ class AbcClient extends Client implements IPayContract
      */
     public function cancel(array $requestParams)
     {
-        try {
-            $charge = new CancelOrder();
-            return $charge->request($requestParams);
-        } catch (PaymentException $e) {
-            throw $e;
-        }
     }
 
     /**
@@ -82,12 +75,6 @@ class AbcClient extends Client implements IPayContract
      */
     public function close(array $requestParams)
     {
-//        try {
-//            $charge = new CloseOrder();
-//            return $charge->request($requestParams);
-//        } catch (PaymentException $e) {
-//            throw $e;
-//        }
     }
 
     /**

@@ -14,13 +14,12 @@ namespace Ttglad\Payment\Clients;
 use Ttglad\Payment\Codes\PaymentCode;
 use Ttglad\Payment\Contracts\IPayContract;
 use Ttglad\Payment\Exceptions\PaymentException;
-use Ttglad\Payment\Services\Union\CancelOrder;
-use Ttglad\Payment\Services\Union\RefundQuery;
-use Ttglad\Payment\Services\Union\TradeQuery;
-use Ttglad\Payment\Services\Union\TradeRefund;
+use Ttglad\Payment\Services\AlipaySettle\RefundQuery;
+use Ttglad\Payment\Services\AlipaySettle\TradeQuery;
+use Ttglad\Payment\Services\AlipaySettle\TradeRefund;
 
 
-class UnionClient extends Client implements IPayContract
+class AlipaySettleClient extends Client implements IPayContract
 {
     /**
      * @param string $channel
@@ -31,7 +30,7 @@ class UnionClient extends Client implements IPayContract
     public function pay(string $channel, array $requestParams)
     {
         $class = ucfirst(str_replace(['-', '_', ''], '', strtolower($channel)));
-        $className = "Ttglad\\Payment\\Services\\Union\\{$class}Pay";
+        $className = "Ttglad\\Payment\\Services\\AlipaySettle\\{$class}Pay";
 
         if (!class_exists($className)) {
             throw new PaymentException(sprintf('class [%s] not exists.', $className), PaymentCode::CLASS_NOT_EXIST);
@@ -82,6 +81,12 @@ class UnionClient extends Client implements IPayContract
      */
     public function close(array $requestParams)
     {
+        try {
+            $charge = new CloseOrder();
+            return $charge->request($requestParams);
+        } catch (PaymentException $e) {
+            throw $e;
+        }
     }
 
     /**

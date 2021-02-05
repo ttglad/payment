@@ -15,6 +15,7 @@ use Ttglad\Payment\Consts\AlipayConst;
 use Ttglad\Payment\Contracts\IRequestContract;
 use Ttglad\Payment\Exceptions\PaymentException;
 use Ttglad\Payment\Helpers\ArrayHelper;
+use Ttglad\Payment\Helpers\DataHelper;
 use Ttglad\Payment\Services\AlipayBaseService;
 
 class WapPay extends AlipayBaseService implements IRequestContract
@@ -55,7 +56,9 @@ class WapPay extends AlipayBaseService implements IRequestContract
             'out_trade_no' => $requestParams['out_trade_no'] ?? '',
             'timeout_express' => $timeoutExp,
             'time_expire' => $timeExpire ? date('Y-m-d H:i:s', $timeExpire) : '',
-            'total_amount' => $requestParams['amount'] > 0 ? $requestParams['amount'] / 100 : '',
+            'total_amount' => DataHelper::amountFormat($requestParams['amount']),
+            'discountable_amount' => DataHelper::amountFormat($requestParams['discountable_amount']),
+            'goods_detail' => $this->formatGoodsInfo($requestParams['goods_info']),
             'auth_token' => $requestParams['auth_token'] ?? '',
             'goods_type' => $requestParams['goods_type'] ?? '',
             'quit_url' => $requestParams['quit_url'] ?? '',

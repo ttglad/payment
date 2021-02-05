@@ -110,6 +110,31 @@ abstract class WechatBaseService extends BaseService
     }
 
     /**
+     * @param array $goods
+     * @return array
+     */
+    protected function formatGoodsInfo(array $goods = [])
+    {
+        $return = [];
+        if (!empty($goods)) {
+            foreach ($goods as $_goods) {
+                if (!isset($_goods['goods_id'])) {
+                    continue;
+                }
+                $info =  [
+                    'goods_id' => $_goods['goods_id'] ?? '',
+                    'wxpay_goods_id' => $_goods['goods_id_third'] ?? '',
+                    'goods_name' => $_goods['goods_name'] ?? '',
+                    'quantity' => $_goods['goods_quantity'] ?? '',
+                    'price' => DataHelper::amountFormat($_goods['goods_price']),
+                ];
+                $return[] = $info;
+            }
+        }
+        return $return;
+    }
+
+    /**
      * @param string $signStr
      * @return string
      */

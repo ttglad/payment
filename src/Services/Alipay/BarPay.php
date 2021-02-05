@@ -16,6 +16,7 @@ use Ttglad\Payment\Consts\AlipayConst;
 use Ttglad\Payment\Contracts\IRequestContract;
 use Ttglad\Payment\Exceptions\PaymentException;
 use Ttglad\Payment\Helpers\ArrayHelper;
+use Ttglad\Payment\Helpers\DataHelper;
 use Ttglad\Payment\Helpers\HttpHelper;
 use Ttglad\Payment\Services\AlipayBaseService;
 
@@ -76,12 +77,12 @@ class BarPay extends AlipayBaseService implements IRequestContract
             'subject' => $requestParams['subject'] ?? '',
             'buyer_id' => $requestParams['buyer_id'] ?? '',
             'seller_id' => $requestParams['seller_id'] ?? '',
-            'total_amount' => $requestParams['amount'] > 0 ? number_format($requestParams['amount'] / 100, 2) : '',
-            'discountable_amount' => isset($requestParams['discountable_amount']) ? number_format($requestParams['discountable_amount'] / 100, 2) : '',
+            'total_amount' => DataHelper::amountFormat($requestParams['amount']),
+            'discountable_amount' => DataHelper::amountFormat($requestParams['discountable_amount']),
             'trans_currency' => $requestParams['trans_currency'] ?? 'CNY',
             'settle_currency' => $requestParams['settle_currency'] ?? 'CNY',
             'body' => $requestParams['body'] ?? '',
-            'goods_detail' => $requestParams['goods_detail'] ?? '',
+            'goods_detail' => $this->formatGoodsInfo($requestParams['goods_info']),
             'operator_id' => $requestParams['operator_id'] ?? '',
             'store_id' => $requestParams['store_id'] ?? '',
             'terminal_id' => $requestParams['terminal_id'] ?? '',
