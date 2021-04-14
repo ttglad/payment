@@ -30,6 +30,46 @@ $goods_info = [
 ];
 ```
 
+## 使用方法
+
+```
+# 农行 => \Ttglad\Payment\PaymentProxy::ABC
+# 支付宝 => \Ttglad\Payment\PaymentProxy::ALIPAY
+# 支付宝国际版 => \Ttglad\Payment\PaymentProxy::ALIPAY_GLOBAL
+# 支付宝分账 => \Ttglad\Payment\PaymentProxy::ALIPAY_SETTLE
+# 银联 => \Ttglad\Payment\PaymentProxy::UNION
+# 微信 => \Ttglad\Payment\PaymentProxy::WECHAT
+# 微信分账 => \Ttglad\Payment\PaymentProxy::WECHAT_SETTLE
+
+$client = new \Ttglad\Payment\PaymentProxy(\Ttglad\Payment\PaymentProxy::ALIPAY, [
+    'app_id' => '',
+    'ali_public_key' => '',
+    'ali_private_key' => '',
+    'key_type' => '', // normal普通公钥，cert证书公钥
+    'app_cert_path' => '', //key_type == cert 时需要
+    'root_cert_path' => '', //key_type == cert 时需要
+    'sign_type' => 'RSA2', // RSA,RSA2
+    'notify_url' => '',
+    'gateway_url' => 'https://openapi.alipay.com/gateway.do',
+]);
+
+# 支付 
+$result = $client->pay('app', [
+    'body' => 'ali app pay',
+    'subject' => '测试支付宝APP支付',
+    'out_trade_no' => time() . rand(10000000, 99999999),
+    'time_expire' => time() + 6000, // 表示必须 600s 内付款
+    'amount' => 1, // 单位为分，最小1分
+    'store_id' => '8000',
+]);
+
+# 查询
+$result = $client->tradeQuery([
+    'out_trade_no' => 'test1000307171',
+]);
+```
+
+# 以下是按照支付方式分开使用
 ## 支付宝
 
 ```
