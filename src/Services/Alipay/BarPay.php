@@ -82,7 +82,7 @@ class BarPay extends AlipayBaseService implements IRequestContract
             'trans_currency' => $requestParams['trans_currency'] ?? 'CNY',
             'settle_currency' => $requestParams['settle_currency'] ?? 'CNY',
             'body' => $requestParams['body'] ?? '',
-            'goods_detail' => $this->formatGoodsInfo($requestParams['goods_info']),
+            'goods_detail' => $this->formatGoodsInfo($requestParams['goods_info'] ?? []),
             'operator_id' => $requestParams['operator_id'] ?? '',
             'store_id' => $requestParams['store_id'] ?? '',
             'terminal_id' => $requestParams['terminal_id'] ?? '',

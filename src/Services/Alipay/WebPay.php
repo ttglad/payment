@@ -57,7 +57,7 @@ class WebPay extends AlipayBaseService implements IRequestContract
             'discountable_amount' => DataHelper::amountFormat($requestParams['discountable_amount']),            'subject' => $requestParams['subject'] ?? '',
             'body' => $requestParams['body'] ?? '',
             'time_expire' => $timeExpire ? date('Y-m-d H:i:s', $timeExpire) : '',
-            'goods_detail' => $this->formatGoodsInfo($requestParams['goods_info']),
+            'goods_detail' => $this->formatGoodsInfo($requestParams['goods_info'] ?? []),
             'passback_params' => urlencode($requestParams['return_params'] ?? ''),
             'extend_params' => $requestParams['extend_params'] ?? '',
             'goods_type' => $requestParams['goods_type'] ?? '',

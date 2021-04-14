@@ -15,6 +15,7 @@ final class PaymentCode
     const PARAM_ERROR = 100001; // 参数错误
     const CONFIG_ERROR = 10002; // 配置错误
     const CLASS_NOT_EXIST = 100003; // 不存在的类
+    const METHOD_NOT_EXIST = 100004; // 不存在的方法
 
     const JSON_FORMAT_ERROR = 101001;
     const XML_FORMAT_ERROR = 101002;

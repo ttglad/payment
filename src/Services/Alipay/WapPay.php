@@ -58,7 +58,7 @@ class WapPay extends AlipayBaseService implements IRequestContract
             'time_expire' => $timeExpire ? date('Y-m-d H:i:s', $timeExpire) : '',
             'total_amount' => DataHelper::amountFormat($requestParams['amount']),
             'discountable_amount' => DataHelper::amountFormat($requestParams['discountable_amount']),
-            'goods_detail' => $this->formatGoodsInfo($requestParams['goods_info']),
+            'goods_detail' => $this->formatGoodsInfo($requestParams['goods_info'] ?? []),
             'auth_token' => $requestParams['auth_token'] ?? '',
             'goods_type' => $requestParams['goods_type'] ?? '',
             'quit_url' => $requestParams['quit_url'] ?? '',

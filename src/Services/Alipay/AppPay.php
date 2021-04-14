@@ -67,7 +67,7 @@ class AppPay extends AlipayBaseService implements IRequestContract
             'store_id' => $requestParams['store_id'] ?? '',
             'specified_channel' => $requestParams['specified_channel'] ?? '',
             'disable_pay_channels' =>  $requestParams['disable_pay_channels'] ?? '',
-            'goods_detail' => $this->formatGoodsInfo($requestParams['goods_info']),
+            'goods_detail' => $this->formatGoodsInfo($requestParams['goods_info'] ?? []),
             'ext_user_info' => $requestParams['ext_user_info'] ?? '',
             'business_params' => $requestParams['business_params'] ?? '',
         ];

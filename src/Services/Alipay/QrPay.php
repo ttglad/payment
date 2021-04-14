@@ -75,7 +75,7 @@ class QrPay extends AlipayBaseService implements IRequestContract
             'total_amount' => DataHelper::amountFormat($requestParams['amount']),
             'discountable_amount' => DataHelper::amountFormat($requestParams['discountable_amount']),'subject' => $requestParams['subject'] ?? '',
             'body' => $requestParams['body'] ?? '',
-            'goods_detail' => $this->formatGoodsInfo($requestParams['goods_info']),
+            'goods_detail' => $this->formatGoodsInfo($requestParams['goods_info'] ?? []),
             'product_code' => $requestParams['product_code'] ?? '',
             'operator_id' => $requestParams['operator_id'] ?? '',
             'store_id' => $requestParams['store_id'] ?? '',
