@@ -16,7 +16,7 @@
         "ext-simplexml": "*",
         "ext-xml": "*",
         "ext-openssl": "*",
-        "guzzlehttp/guzzle": "~6.0"
+        "guzzlehttp/guzzle": "~7.1"
     },
     "autoload": {
         "psr-4": {"Ttglad\\Payment\\": "src/"}
